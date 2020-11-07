@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.js"></script>
+</head>
+<body>
+
+<ul>
+    <li>123</li>
+    <li>345</li>
+    <li>456</li>
+</ul>
+
+<button class="btn">btn</button>
+
+<script>
+
+
+    // each循环
+
+    // 1 循环序列
+
+    var arr=[12,34,5667];
+    $.each(arr,function (i,j) {
+        console.log(i,j)
+    });
+
+    var obj={"name":"alex","age":123}
+    $.each(obj,function (i,j) {
+        console.log(i,j)
+    });
+
+    // 2 循环标签
+
+    $("ul li").each(function (i,j) {
+        console.log(i,j);
+        console.log($(this).html())
+    })
+
+
+</script>
+</body>
+</html>

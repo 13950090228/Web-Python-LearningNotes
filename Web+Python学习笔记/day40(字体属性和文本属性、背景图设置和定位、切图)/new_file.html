@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style>
+		*{
+			margin: 0;
+			padding: 0;
+		}
+		.box{
+			width: 500px;
+			height: 300px;
+			border: 1px solid red;
+			position: relative;
+			top: 50px;
+			left: 50px;
+		}
+		.box1,.box2,.box3,.box4{
+			background-image: url(./icon-slides.png);
+			width: 40px;
+			height: 66px;
+			background-repeat: no-repeat;
+			background-position-y: 0px;
+			cursor: pointer;
+			border: 1px solid red;
+			line-height: 500px;
+			position: absolute;
+			/* display: inline-block; */
+
+		}
+		.box1{
+			background-position-x: -1px;	
+			left: 0;
+			top:0px;
+			visibility: hidden;
+		}
+		.box2{
+			background-position-x: -42px;	
+			top:0px;
+			right: 0;
+			visibility: hidden;
+		}
+		.box3{
+			background-position-x: -84px;	
+			left: 0;
+			top:117px;
+			visibility: visible;
+		}
+		.box4{
+			background-position-x: -123px;	
+			right: 0;
+			top: 117px;
+			visibility: visible;
+		}
+		.box3:hover{
+			visibility: hidden;
+		}
+		.box3:hover .box1{
+			visibility: visible;
+		}
+		.box4:hover{
+			visibility: hidden;
+		}
+		.box4:hover .box2{
+			visibility: visible;
+		}
+
+
+	</style>
+</head>
+<body style="">
+	<div class="box">
+		
+	
+		
+		<div class="box3">
+			<div class="box1">
+			</div>
+		</div>
+		
+		<div class="box4">
+			<div class="box2">
+			
+			</div>
+		</div>
+		
+		
+	</div>
+</body>
+</html>

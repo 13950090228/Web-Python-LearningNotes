@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+	</head>
+	<body>
+		<input type="text" placeholder="请输入城市"/>
+		<input type="button" value="获取最新天气" />
+		<div class="box">
+			
+		</div>
+	</body>
+	<script src="./jquery.js"></script>
+	<script type="text/javascript">
+		$(function(){
+			// $('input[type=button]').click(function(){
+				
+			// 	var tianqi = $('input[type=text]').val();
+				// $.ajax({
+				// 	url :`https://free-api.heweather.net/s6/weather/now?location=${tianqi}&key=4693ff5ea653469f8bb0c29638035976`,
+				// 	type:'get',
+					
+				// 	success:function(data){
+				// 		var val = data.HeWeather6[0].now.cond_txt;
+				// 		var Val =`<p>天气：${val}</p>`;
+				// 		var city = data.HeWeather6[0].basic.location;
+				// 		var City = `<p>城市：${city}</p>`;
+				// 		var tmp = data.HeWeather6[0].now.tmp;
+				// 		var Tmp = `<p>温度：${tmp}℃</p>`;
+						
+				// 		$('.box').append(City);
+				// 		$('.box').append(Tmp);
+				// 		$('.box').append(Val);
+				// 	},
+					
+				// 	error:function(err){
+				// 		console.log(err);
+				// 	},
+				// });
+			// });
+			function init(){
+				$.ajax({
+					url :`https://free-api.heweather.net/s6/weather/forecast?location=xiamen&key=4693ff5ea653469f8bb0c29638035976`,
+					type:'get',
+					
+					success:function(data){
+						var val = data.HeWeather6[0].now.cond_txt;
+						var Val =`<p>天气：${val}</p>`;
+						var city = data.HeWeather6[0].basic.location;
+						var City = `<p>城市：${city}</p>`;
+						var tmp = data.HeWeather6[0].now.tmp;
+						var Tmp = `<p>温度：${tmp}℃</p>`;
+						
+						$('.box').append(City);
+						$('.box').append(Tmp);
+						$('.box').append(Val);
+					},
+
+					error:function(err){
+						console.log(err);
+					},
+				});
+			}
+			
+		})
+	</script>
+</html>

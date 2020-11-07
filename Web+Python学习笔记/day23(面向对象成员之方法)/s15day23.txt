@@ -1,0 +1,273 @@
+s15day23 
+
+内容回顾:
+	1. 面向对象帮你解决什么问题?
+		封装:
+			归类,将函数放置到一个类中.
+			打包,将数据打包放到一个对象.
+	2. 三大特性
+		封装
+		继承
+		多态,Python原生支持多态,崇尚鸭子模型.由于Python函数传参时,无序指定类型:
+				def func(arg): # arg可以是多种类型,只要其中有send方法即可.
+					arg.send()
+	3. 编写面向对象程序
+		归类+提取公共值
+		
+	4. self到底是谁?
+		self参数是Python帮助我们自动传递.
+		如果执行面向对象中的方法时,前面必须有一个对象: xxx.func()
+		
+		class Foo:
+			def f1(self):
+				pass
+				
+			def f2(self):
+				self.f1()
+				
+		obj = Foo()
+		obj.f2()
+	
+	5. Python支持多继承 
+	
+	
+	
+	
+今日内容:
+	1. 成员 
+	
+	2. 嵌套(建模) 
+	
+内容详细:
+	1. 类的成员 
+		
+		class Foo:
+			
+			# 方法
+			def __init__(self,name):
+				# 实例变量/字段
+				self.name = name     
+				
+			# 方法
+			def func(self):
+				pass 
+	
+		# obj,Foo类的对象
+		# obj,Foo类的实例
+		obj = Foo('朱奎峰')
+	
+	
+		成员共分为三类:
+		
+			变量:
+				- 实例变量(字段) 
+					- 公有实例变量(字段) 
+					- 私有实例变量(字段) 
+				- 类变量(静态字段)
+					- 公有类变量(静态字段)
+					- 私有类变量(静态字段)
+					
+					实例一:
+						class Foo:
+							# 类变量(静态字段)
+							country = "中国"
+							
+							def __init__(self,name):
+								# 实例变量(字段)
+								self.name = name  
+							
+							
+							def func(self):
+								pass
+				
+				
+						obj1 = Foo('季红')
+						obj2 = Foo('王晓东')
+						
+						Foo.country
+						
+				
+				思考题: 如何验证儿子都不知道私有字段的存在.
+				
+					无法访问:
+						class Base(object):
+							__secret = "受贿"
+
+						class Foo(Base):
+
+							def func(self):
+								print(self.__secret)
+								print(Foo.__secret)
+
+
+						obj = Foo()
+						obj.func()
+										
+					可以访问:
+						class Base(object):
+							__secret = "受贿"
+
+							def zt(self):
+								print(Base.__secret)
+
+
+						class Foo(Base):
+
+							def func(self):
+								print(self.__secret)
+								print(Foo.__secret)
+
+
+						obj = Foo()
+						obj.zt()
+				
+					
+			方法:
+				- 实例方法
+						class Foo(object):
+							def __init__(self, name):
+								self.name = name
+
+							# 实例方法
+							def func(self):
+								print(self.name)
+								
+						obj = Foo('..')
+						obj.func()
+						
+				- 静态方法
+						class Foo(object):
+							def __init__(self, name):
+								self.name = name
+
+							# 静态方法,如果方法无需使用对象中封装的值,那么就可以使用静态方法
+							@staticmethod
+							def display(a1,a2):
+								return a1 + a2
+						Foo.display(1,3)
+						
+				- 类方法
+						class Foo(object):
+						
+							# 类方法,cls是类
+							@classmethod
+							def show(cls,x1,x2):
+								print(cls,x1,x2)
+
+						# 执行类方法
+						Foo.show(1,8)
+
+				面试题: 静态方法/类方法和实例方法的区别?
+				
+					
+			属性(通过方法改造出来):
+				示例:
+					class Foo(object):
+						def __init__(self):
+							pass
+
+						@property
+						def start(self):
+							return 1
+
+						@property
+						def end(self):
+							return 10
+
+					obj = Foo()
+					print(obj.start)
+					print(obj.end)
+					"""
+						# 总结:
+						#     1. 编写时
+						#            - 方法上方写 @property
+						#            - 方法参数:只有一个self
+						#     2. 调用时:无需加括号  对象.方法
+						#     3. 应用场景: 对于简单的方法,当无需传参且有返回值时,可以使用 @property
+					"""
+			
+			
+		练习题: 
+		
+		
+	2. 嵌套 
+			
+			面向对象:
+				"""
+				创建三个学校且三个学校的设施内容等都是一致.
+				"""
+
+				class School(object):
+					def __init__(self, name, address):
+						self.name = name
+						self.address = address
+
+					def speech(self):
+						print('讲课')
+
+				obj1 = School('老男孩北京校区', '美丽富饶的沙河')
+				obj2 = School('老男孩上海校区', '浦东新区')
+				obj3 = School('老男孩深圳校区', '南山区')
+				class Teacher(object):
+					def __init__(self, name, age, salary):
+						self.name = name
+						self.age = age
+						self.__salary = salary
+						self.school = None
+
+				t1 = Teacher('李杰', 19, 188888)
+				t2 = Teacher('艳涛', 18, 60)
+				t3 = Teacher('女神',16, 900000)
+				# ############## 老师分配校区
+				t1.school = obj1
+				t2.school = obj1
+				t3.school = obj2
+				# ####################################
+				# 查看t1老师,所在的校区名称/地址
+				print(t1.school.name)
+				print(t1.school.address)
+				print(t1.name)
+				print(t1.age)
+				t1.school.speech()
+			
+			准则: 字段和方法的归类.
+		
+			以前:
+				[
+					{"name":'alex1','age':18,xxx:999},
+					{"name":'alex2',age':18},
+				]
+		
+		
+总结:
+	1. 类成员,背会.
+	
+	2. 嵌套 
+		
+作业:
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	

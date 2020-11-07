@@ -1,0 +1,79 @@
+
+回顾jquery
+
+$(".c1").css()
+
+
+1 选择器
+    基本选择器 ：  $("#c1")   $(".c1")   $("p")   $("*")
+	组合选择器 ：  $(".c1 p") $(".c1>p") $("div,p")  $("div[alex='123']")
+    属性选择器 ：  $("[alex='123']")   $("[name='123']")
+	表单选择器 ：  $(":radio")
+	筛选器：
+	         $(".c1").eq(索引)
+	         $(".c1").first()
+	         $(".c1").last()
+	         $(".c1").even()
+	         $(".c1").odd()
+			 
+			 $("#c1").hasClass("c1")
+
+
+上节回顾：
+
+
+cookie
+      总结：
+	      针对每一个服务器浏览器都会保存一个key-value结构的类似于{}
+       
+			obj=HttpResponse("OK")
+			obj=render("")
+			obj=redirect("")
+            
+			# 设置cookie
+			obj.set_cookie("key","value",max_age="")
+	        
+			# 获取cookie
+			 request.COOKIES.get()
+			 
+			# obj.delete_cookie("cookie_key",path="/",domain=name)
+ 
+session
+        
+
+         # 设置session  
+            request.session["username"]="user"			
+   
+         # 取出session
+		    request.session.get("username")
+			
+	     # 删除session
+		  del request.session["username"]
+          
+		 # request.session.flush()
+ 		  
+用户认证组件 
+        使用django自带的用户表 auth_user
+			插入记录的命令：  python manage.py  createsuperuser
+			
+			1 auth.authenticate(username=user,password=pwd)
+			
+			2 auth.login(request,user_obj) 
+			    request.session["user_id"]=user.pk
+				request.user：全局变量，模板，视图直接可以使用
+			
+			3 auth.logout(request)
+			
+			4 User.objects.create_user(username=user,password=pwd)
+			
+			5   # user=User.objects.get(username=request.user.username)
+				# user.set_password("666")
+				# user.save()
+
+中间件
+
+        
+
+
+
+

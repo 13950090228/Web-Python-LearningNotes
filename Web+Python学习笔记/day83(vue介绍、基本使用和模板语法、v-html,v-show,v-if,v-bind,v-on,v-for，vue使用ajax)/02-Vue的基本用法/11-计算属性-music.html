@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        ul li.active{
+            background-color: darkcyan;
+        }
+    </style>
+</head>
+<body>
+<div id="music">
+    <!--@ended 播放完成 会自动调用该方法-->
+    <audio :src="currentSong" controls autoplay @ended = 'nextHanlder'></audio>
+    <ul>
+        <li @click = 'songHandler(index)' v-for = '(item,index) in musicData' :key="item.id" :class = '{active:index===currentIndex}'>
+            <h2>歌手：{{ item.author }}</h2>
+            <p>歌名：{{ item.name }}</p>
+        </li>
+    </ul>
+</div>
+<script src="./vue.js"></script>
+<script>
+    var musicData = [{
+        id: 1,
+        name: '于荣光 - 少林英雄',
+        author: '于荣光',
+        songSrc: './static/于荣光 - 少林英雄.mp3'
+    },
+        {
+            id: 2,
+            name: 'Joel Adams - Please Dont Go',
+            author: 'Joel Adams',
+            songSrc: './static/Joel Adams - Please Dont Go.mp3'
+        },
+        {
+            id: 3,
+            name: 'MKJ - Time',
+            author: 'MKJ',
+            songSrc: './static/MKJ - Time.mp3'
+        },
+        {
+            id: 4,
+            name: 'Russ - Psycho (Pt. 2)',
+            author: 'Russ',
+            songSrc: './static/Russ - Psycho (Pt. 2).mp3'
+        }
+    ];
+
+    new Vue({
+        el: '#music',
+        data() {
+            return {
+                musicData:[],
+                currentIndex:0
+            }
+
+        },
+        computed:{
+          currentSong () {
+
+              return this.musicData[this.currentIndex].songSrc
+          }
+        },
+        methods:{
+            songHandler(i){
+                this.currentIndex = i;
+            },
+            nextHanlder(){
+                this.currentIndex++;
+            }
+        },
+
+        created(){
+            this.musicData = musicData
+        }
+    })
+</script>
+</body>
+</html>

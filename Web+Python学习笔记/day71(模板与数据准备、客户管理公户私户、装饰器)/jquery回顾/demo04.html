@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.js"></script>
+
+    <style>
+        .c1{
+            background-color: red;
+        }
+
+        .c2{
+            color: green;
+        }
+
+        .c3{
+            font-size: 32px;
+        }
+    </style>
+</head>
+<body>
+
+<p id="p1">123</p>
+<p id="p2"><a href="">click</a></p>
+<p id="p3" class="c1">p3</p>
+
+<script>
+
+$("#p1").click(function () {
+
+    var val=parseInt($(this).html())+1;
+    $(this).html(val)
+
+})
+
+
+</script>
+</body>
+</html>

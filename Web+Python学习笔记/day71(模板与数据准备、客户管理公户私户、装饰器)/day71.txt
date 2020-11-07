@@ -1,0 +1,19 @@
+
+
+自定义分页
+
+   1 分页功能
+   
+   2 保存搜索条件
+   
+   
+   
+   
+自关联：
+    customer
+	   
+	   id   name    refferform_id
+        1    alex        null
+		2    egon          1
+   
+   

@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>图书查看</title>
+    <link rel="stylesheet" href="/static/bootstrap/css/bootstrap.css">
+</head>
+<style>
+    *{
+        margin: 0;
+        padding: 0;
+    }
+
+</style>
+<body>
+    <h3>查看书籍</h3>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8 col-md-offset-2">
+                <a class="btn btn-primary" href="/book/add">添加书籍</a>
+                <p></p>
+                <table class="table table-striped table-hover table-bordered">
+                    <thead>
+                        <tr>
+                            <td>编号</td>
+                            <td>书籍名称</td>
+                            <td>价格</td>
+                            <td>出版日期</td>
+                            <td>出版社</td>
+                            <td>作者</td>
+                            <td>操作</td>
+                        </tr>
+                    </thead>
+<!--                    <tbody>-->
+<!--                    {% for book in book_list %}-->
+<!--                        <tr>-->
+<!--                            <td>{{forloop.counter}}</td>-->
+<!--                            <td>{{book.title}}</td>-->
+<!--                            <td>{{book.price}}</td>-->
+<!--                            <td>{{book.pub_date|date:'Y-m-d'}}</td>-->
+<!--                            <td>{{book.publish}}</td>-->
+<!--                            <td>-->
+<!--                                {% for author in book.authors.all %}-->
+<!--                                    <span>{{author.name}}</span>-->
+<!--                                    {% if not forloop.last %}-->
+<!--                                    ,-->
+<!--                                    {% endif %}-->
+<!--                                {% endfor %}-->
+<!--                            </td>-->
+<!--                            <td>-->
+<!--                                <a href="/book/edit/{{book.pk}}" class="btn btn-sm btn-warning">编辑</a>-->
+<!--                                <a href="/book/delete/{{book.pk}}" class="btn btn-sm btn-danger">删除</a>-->
+<!--                            </td>-->
+<!--                        </tr>-->
+<!--                    {% endfor %}-->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</body>
+<script src="/static/js/jquery.js"></script>
+<script>
+    $('h3').click(function () {
+        $(this).css('color','red')
+
+    })
+</script>
+</html>

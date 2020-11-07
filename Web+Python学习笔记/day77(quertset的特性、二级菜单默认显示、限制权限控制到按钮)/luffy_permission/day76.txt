@@ -1,0 +1,134 @@
+day76
+
+
+上节回顾：
+
+django模板：
+
+自定义过滤器，标签
+
+
+补充知识：
+   1 
+			DATABASES = {
+				'default': {
+					'ENGINE': 'django.db.backends.mysql',
+					'NAME':'bms', # 要连接的数据库，连接前需要创建好
+					'USER':'root',# 连接数据库的用户名
+					'PASSWORD':'', # 连接数据库的密码
+					'HOST':'127.0.0.1',# 连接主机，默认本级
+					'PORT':3306 #  端口 默认3306
+				},
+			   'app01': {
+					'ENGINE': 'django.db.backends.mysql',
+					'NAME':'bms', # 要连接的数据库，连接前需要创建好
+					'USER':'root',# 连接数据库的用户名
+					'PASSWORD':'', # 连接数据库的密码
+					'HOST':'127.0.0.1',# 连接主机，默认本级
+					'PORT':3306 #  端口 默认3306
+				}
+			}
+    2 
+	    class Book():
+		     title=models.CharField(....)
+			 publish=models.ForeignKey(to="Publish",related_name="books") 
+		     authors=models.Many2many(to="Author",related_name="book_list")
+			 
+        class Author():
+		     name=models.CharField(....)
+		
+		class Publish():
+		     name=models.CharField(....)
+			 
+			 
+	    pub_obj.book_set.all()
+	    pub_obj.xxx.all()
+		
+		author_obj.book_set.all()
+		author_obj.book_list.all()
+		
+		
+		级联删除：
+		    
+			
+			Author
+			   id   name    ad_id
+			    1     alex    1
+			    2     egon    2
+			AuthorDetail
+			    id    tel
+				 1    110
+				 2    911
+				
+		     
+二级菜单：
+
+信息管理
+    客户列表
+
+财务管理
+    缴费列表
+
+
+
+
+
+
+    Menu
+
+
+     id     title
+      1     财务管理
+      2     信息管理
+
+
+
+     Permission
+
+       id    title        url     menu_id
+        1    查看客户      ...        2
+        2    添加客户      ...       null
+        3    编辑客户      ...       null
+        2    删除客户      ...       null
+
+
+
+
+
+
+day76
+
+二级菜单：
+
+
+1 表结构更改
+     class Menu(models.Model):
+		title = models.CharField(max_length=32, verbose_name='菜单')
+		icon = models.CharField(max_length=32, verbose_name='图标', null=True, blank=True)
+
+
+	class Permission(models.Model):
+		"""
+		权限表
+		"""
+		title = models.CharField(max_length=32, verbose_name='标题')
+		url = models.CharField(max_length=32, verbose_name='权限')
+		menu=models.ForeignKey("Menu",on_delete=models.CASCADE,null=True)
+
+
+2 重新二级菜单信息注入sesson中
+
+
+3 获取二级菜单信息
+
+4 渲染页面
+
+
+
+
+
+
+
+
+
+

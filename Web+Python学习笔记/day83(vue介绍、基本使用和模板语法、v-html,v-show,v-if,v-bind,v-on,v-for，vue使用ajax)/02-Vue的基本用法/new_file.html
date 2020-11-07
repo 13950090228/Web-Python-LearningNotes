@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title></title>
+</head>
+<body>
+	<div id="app">
+		<img :src="images[count].imgSrc" alt="">
+		<button @click="back">上一张</button>
+		<button @click="next">下一张</button>
+	</div>
+</body>
+<script src="vue.js"></script>
+<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+<script>
+	let vm = new Vue({
+		el:"#app",
+		data(){
+			return{
+				images:[
+					{id:1,imgSrc:"./images/1.jpg"},
+					{id:2,imgSrc:"./images/2.jpg"},
+					{id:3,imgSrc:"./images/3.jpg"},
+					{id:4,imgSrc:"./images/4.png"},
+				],
+				count:0
+			}
+			
+		},
+		methods:{
+			next(){
+
+				if(this.count == 3){
+					this.count=0;
+				}else{
+					this.count++;
+				}
+				
+			},
+			
+			back(){
+				if(this.count == 0){
+					this.count=3;
+				}else{
+					this.count--;
+				}
+				
+			}
+
+		},
+		created(){
+			setInterval(()=>{
+				if(this.count==3){
+					this.count=0;
+				}else{
+					this.count++;
+				}
+					
+				
+			},2000)
+		}
+	})
+</script>
+</html>

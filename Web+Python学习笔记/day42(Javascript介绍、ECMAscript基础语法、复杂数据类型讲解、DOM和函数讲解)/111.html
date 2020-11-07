@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.js"></script>
+
+    <style>
+
+    </style>
+</head>
+<body>
+
+
+
+
+
+
+<select id="s1">
+	<option value ="0">请选择省份</option>
+	<option value ="1">湖北省</option>
+	<option value ="2">福建省</option>
+	<option value ="3">山东省</option>
+	<option value ="4">山西省</option>
+</select>
+
+<select id="s2">
+	<option value ="">请选择城市</option>
+</select>
+
+
+
+
+
+
+
+<script>
+	$("#s1").change(function(){
+		let pro = $(this).val();
+		let data={"1":["廊坊","保定","雄安"],"2":["厦门","福州","泉州"],"3":["大同","太原","榆次"],"4":["武汉","武昌","汉口"]};
+		let citys = data[pro];
+		
+		$("#s2")[0].options.length=1;
+		
+		$.each(citys,function(i,j){
+			let option = $('<option>');
+			option.html(j);
+			option.attr("value",i);
+			$("#s2").append(option);
+			
+		})
+	})
+</script>
+</body>
+</html>

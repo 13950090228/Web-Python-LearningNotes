@@ -1,0 +1,107 @@
+day63
+
+1 Ajax 文件上传     作业
+2 cookie session 用户认证组件
+3 forms组件 分页
+4 中间件
+
+
+
+一 Ajax 
+
+浏览器向服务端发送请求的形式：
+1 地址栏输入url   默认get方式
+2 form表单的提交按钮   get或者post
+3 a标签   默认get
+
+
+4 Ajax
+  特点：
+       1 异步
+	   2 局部刷新
+   
+   $.ajax({
+               url:"/cal/",
+               type:"post",
+               data:{
+                   num1:num1,
+                   num2:num2,
+                   csrfmiddlewaretoken:$("[name='csrfmiddlewaretoken']").val()
+
+               },
+               success:function (response) {
+                   console.log(response);
+                   $("#ret").val(response)
+               }
+
+           })
+		   
+		   
+		   
+    json数据
+	    +-------------------+---------------+
+		| Python            | JSON          |
+		+===================+===============+
+		| dict              | object        |
+		+-------------------+---------------+
+		| list, tuple       | array         |
+		+-------------------+---------------+
+		| str               | string        |
+		+-------------------+---------------+
+		| int, float        | number        |
+		+-------------------+---------------+
+		| True              | true          |
+		+-------------------+---------------+
+		| False             | false         |
+		+-------------------+---------------+
+		| None              | null          |
+		+-------------------+---------------+
+
+	JS：
+	    序列化方法：JSON.stringify()  等同于  python json.dumps()
+	    反序列化：JSON.parse()  等同于  python json.loads()
+
+文件上传
+
+
+
+ORM练习题
+1、自行创建测试数据;
+2、查询学生总人数:
+Student.objects.all().aggregate(Count('sid'))
+3、查询“生物”课程和“物理”课程成绩都及格的学生id和姓名;
+Scoree.objects.filter(Q(Q(course_id=1) | Q(course_id=3))&Q(score__gt=59)).values('student__sid','student__sname')
+4、查询每个年级的班级数，取出班级数最多的前二个年级:
+Class_grade.objects.values('gname').annotate(n=Count('class__caption')).order_by('-n')[:2]
+5、查询平均成绩最高的学生的id和姓名以及平均成绩;
+Scoree.objects.values('student__sname').annotate(avg_score=Avg('score')).order_by('-avg_score')[0]
+6、查询每个年级的学生人数:
+Class_grade.objects.annotate(n=Count('class__student__sid')).values('gname','n')
+7、查询每位学生的学号，姓名,平均成绩:
+Student.objects.annotate(avg=Avg('scoree__score')).values('sid','sname','avg')
+8、查询学生编号为“2"的学生的姓名、该学生成绩最高的课程名及分数:
+Student.objects.filter(sid=2).annotate(max=Max('scoree__score')).values('sname','scoree__course__cname','max')[0]
+9、查询姓"李"的老师的个数和所带班级数:
+Teach_class.objects.filter(tid__tname__startswith="李").annotate(c=Count('tid'),n=Count('cid')).values("tid__tname",'n')
+10、查询班级数小于2的年级id和年级名:
+Class_grade.objects.annotate(c=Count('class__pk')).filter(c__lt=2).values('gid','gname','c')
+11、查询教过课程超过1门的老师的id和姓名;
+Teacher.objects.annotate(c=Count('course__pk')).filter(c__gt=1).values('pk','tname','c')
+12、查询学过编号“1”课程和编号“2”课程的同学的学号、姓名:
+Student.objects.filter(scoree__course_id=1).filter(scoree__course_id=2).values('sid','sname')
+13、查询所带班级数最多的老师id和姓名;
+Teacher.objects.annotate(c=Count('teach_class__cid')).filter(c=2).values('tname','c')
+14、 查询有课程成绩小于60分的同学的学号、姓名:
+Scoree.objects.filter(score__lt=60).values('student_id','student__sname')
+15、查询男生、女生的人数，按倒序排列:
+Student.objects.values('gender').annotate(c=Count('gender'))
+16、查询各个课程及相应的选修人数:
+Scoree.objects.values('course_id').annotate(c=Count('student_id'))
+17、查询同时选修了物理课和生物课的学生id和姓名;
+Student.objects.filter(scoree__course__cname='生物').filter(scoree__course__cname='体育').values('sid','sname')
+18、检索"3”课程分数小于60，按分数降序排列的同学学号:
+Student.objects.filter(Q(scoree__course_id=3) & Q(scoree__score__gt=70)).values('sname','scoree__score')
+19、 查询每门课程的平均成绩，结果按平均成绩升序排列，平均成绩相同时，按课程号降序排列:
+Scoree.objects.values('course_id').annotate(avg=Avg('score')).order_by('avg','-course_id')
+20、查询各科成绩最高和最低的分:以如下形式显示:课程ID，最高分，最低分:
+Scoree.objects.values('course_id').annotate(max=Max('score'),min=Min('score'))

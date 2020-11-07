@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="/static/js/jquery-3.3.1.min.js"></script>
+
+</head>
+<body>
+
+
+<div class="c1">全局首页:{{ name }}</div>
+{% load cal %}
+{{ n1|mul:13 }}
+<button class="c2">Ajax</button>
+
+<div id="i1" user="{{ name }}"></div>
+
+<script src="/static/index.js"></script>
+
+{#<script>#}
+{#   $(".c1").click(function () {#}
+{#       $(this).css("color","red")#}
+{#   });#}
+{##}
+{##}
+{#   $(".c2").click(function () {#}
+{##}
+{##}
+{#       $.ajax({#}
+{#           url:"",#}
+{#           type:"get",#}
+{#           data:{#}
+{#               name:"{{ name }}"#}
+{#           },#}
+{#           success:function (res) {#}
+{#               console.log(res)#}
+{#           }#}
+{#       })#}
+{##}
+{#   })#}
+{#</script>#}
+
+</body>
+</html>

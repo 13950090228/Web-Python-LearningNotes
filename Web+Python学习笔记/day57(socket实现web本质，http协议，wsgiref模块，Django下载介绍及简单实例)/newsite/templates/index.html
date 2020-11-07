@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>INDEX</title>
+</head>
+<body>
+    <p>用户：{{name}}</p>
+    <h3>商品信息</h3>
+<ul>
+    {% for foo in sp %}
+    <li>{{foo}}</li>
+    {% endfor %}
+</ul>
+    <p>{{sp.1}}</p>
+    <p>{{student.0.name}}</p>
+    <p>{{lyq.running}}</p>
+    <h3>过滤器</h3>
+    <p>{{now|date:"Y/m/d"}}</p>  <!--日期过滤器-->
+    <p>{{book_list|default:"没有符合条件的书籍"}}</p>
+    <p>{{link|safe}}</p>
+<!--    <p>{{tag|safe}}</p>-->
+
+    {% if num > 100 %}
+    <p>100</p>
+    {% else %}
+    <p>{{age}}</p>
+    {% endif %}
+
+
+
+</body>
+</html>

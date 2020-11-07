@@ -1,0 +1,30 @@
+{
+  "id": "1588579",
+  "name": "asd",
+  "font_family": "iconfont",
+  "css_prefix_text": "icon-",
+  "description": "",
+  "glyphs": [
+    {
+      "icon_id": "12292323",
+      "name": "公文夹",
+      "font_class": "gongwenjia",
+      "unicode": "e61e",
+      "unicode_decimal": 58910
+    },
+    {
+      "icon_id": "12292324",
+      "name": "计算器",
+      "font_class": "jisuanqi",
+      "unicode": "e61f",
+      "unicode_decimal": 58911
+    },
+    {
+      "icon_id": "12292325",
+      "name": "金钱护盾",
+      "font_class": "jinqianhudun",
+      "unicode": "e620",
+      "unicode_decimal": 58912
+    }
+  ]
+}

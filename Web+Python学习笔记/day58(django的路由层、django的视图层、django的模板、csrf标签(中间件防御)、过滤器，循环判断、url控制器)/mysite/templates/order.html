@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h3>订单列表</h3>
+    {% for i in order_list %}
+    <p>{{i}}</p>
+    {% endfor %}
+{% endblock content %}
+
+{% block title %}
+    <title>订单</title>
+{% endblock title %}

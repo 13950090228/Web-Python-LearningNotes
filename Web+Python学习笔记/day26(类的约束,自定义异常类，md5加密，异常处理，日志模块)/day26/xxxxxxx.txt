@@ -1,0 +1,5 @@
+2018-08-31 12:59:49 - root - ERROR -10.日志:  Traceback (most recent call last):
+  File "D:/sylar/s15/day26/10.日志.py", line 34, in func
+    a = a +1
+UnboundLocalError: local variable 'a' referenced before assignment
+

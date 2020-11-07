@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+<div id="app">
+    <p>{{ myMsg }}</p>
+    <button @click='clickHandler'>修改</button>
+</div>
+<script src="vue.js"></script>
+<script>
+    let vm = new Vue({
+        el: '#app',
+        data() {
+            return {
+                msg: "alex",
+                age: 18
+            }
+
+        },
+        created() {
+            //定时器  ajax  库 function(){}
+            setInterval(() => {
+
+            })
+        },
+        methods: {
+            clickHandler() {
+                //this的指向就是当前对象
+                this.msg = "wusir";
+                this.age = 20;
+            },
+            clickHandler: function () {
+                console.log(this);
+            }
+
+        },
+        computed: {
+            myMsg: function () {
+                //业务逻辑
+
+//                    计算属性默认只有getter方法
+                return `我的名字叫${this.msg},年龄是${this.age}`;
+            }
+        }
+    })
+
+    console.log(vm);
+</script>
+</body>
+</html>

@@ -1,0 +1,25 @@
+day77
+
+Django补充：
+
+1 QuerySet数据类型
+  特点：
+      (1) 可切片    Entry.objects.all()[:5]
+      (2) 可迭代 ：
+	            articleList=models.Article.objects.all()
+				for article in articleList:
+					print(article.title)
+					
+	  (3) 惰性查询:
+	  
+	             book_list=Book.objects.all()
+				# 何时用到查询集
+				# print(book_list)
+				# for i in book_list:
+				#     print(i)
+				# print(book_list[0:2])
+				# if book_list:
+				#     print("OK")
+	              
+      (4)  缓存机制
+	               

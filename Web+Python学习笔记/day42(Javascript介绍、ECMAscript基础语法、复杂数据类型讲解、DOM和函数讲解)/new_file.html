@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		
+
+	</head>
+	<style type="text/css">
+		.box1{
+			height: 100px;
+			width: 100px;
+			background-color: #FF0000;
+		}
+		.box2{
+			height: 100px;
+			width: 100px;
+		}
+	</style>
+	<body>
+<!-- 		<div class="box1" id="box">
+			
+		</div>
+		<div class="box2">
+
+		</div> -->
+<!-- 		<button type="button" class="cbut" id="but">隐藏</button>
+		<img src="" alt="" id="1myImg" class="myImg">
+		<div class="box1">
+			
+		</div> -->
+	</body>
+	<script type="text/javascript">
+		// https://www.cnblogs.com/majj/p/9095590.html
+		
+		
+		
+		
+		// var list1 = ['北京','山东','天津'];
+		// var list2 = ['东莞','深圳','上海'];
+		// var a = list1.concat(list2); //数组的合并 concat()
+		// 
+		
+		// var score = [98,78,76,100,0];
+		// var a = score.join('|');	 //将数组中的元素使用指定的字符串连接起来，它会形成一个新的字符串
+		
+		// var a = score.toString();
+		
+		// var a = score.slice(1,3);  //返回数组的一段，左闭右开
+		
+		// var arr = ['张三','李四','王文','赵六'];
+		// var item = arr.pop();  //删除数组的最后一个元素并返回删除的元素
+		// var item = arr.push('大鸡巴');  //向数组末尾添加一个元素或多个元素，并返回新的长度
+		//arr.reverse(); //翻转数组
+		// console.log(Array.isArray(arr));
+		// var item = arr.unshift('啊啊','呵呵');  //向数组的开头添加一个或更多元素，并返回新的长度
+		// console.log(arr);
+		
+		var str1 = '  hello  ';
+		var str2 = 'WORLD';
+		var str = '我的天呢,a是嘛,你在说什么呢?a哈哈哈';
+		// var str1 = str.charAt(1);  //返回指定索引的位置的字符
+		// var str1 = str1.concat(' '+ str2);  //返回字符串值，表示两个或多个字符串的拼接
+		// var str1 = str1.replace('ll','aa');  // replace(a,b) 将字符串a替换成字符串b
+		// console.log(str1.indexOf('o'));  // 查找字符的下标，如果找到返回字符串的下标，找不到则返回-1 
+		// console.log(str.split('a',5));  //以字符串a分割字符串，并返回新的数组。如果第二个参数没写，表示返回整个数组，如果定义了个数，则返回数组的最大长度
+		// console.log(str.substr(0,5));  //返回一个字符串中从指定位置开始到指定字符数的字符。
+		// console.log(str1.toUpperCase());  //转大写
+		// console.log(str2.toLowerCase()); //转小写
+		// var num = 132.32522;
+		// var newNum = num.toFixed(2);  //四舍五入
+		// var str = str1.trim()
+		// console.log(str);
+		
+		
+		// http://www.runoob.com/jsref/jsref-obj-date.html
+		var date = new Date;
+		// console.log(date.getDate()); //返回日期
+		console.log(Date());  //返回日期和时间
+		
+		
+		// var a=1;
+		// var b='大鸡巴';
+		// var c='2';
+		// var d='3.22'
+		// console.log(a);
+		// console.log(b);
+		// console.log(c);
+		// document.write(c-a);
+		// document.write(5/0);
+		// document.write(parseInt(d));
+		// var d=prompt('今天是什么天气：');
+		// document.write(d);
+		// var a = 5;
+		// var x = a++;
+		// document.write(a);
+		// document.write(x);
+		// var a = 123;
+		// var astr = String(a);
+		// document.write(astr);
+		// document.write(typeof astr);
+		
+		// var a = 20;
+		
+		// if(a > 18){
+		// 	console.log('可以去嫖娼了');
+		// }
+		// else{
+		// 	console.log('呵呵呵');
+		// }
+		// console.log('啊啊啊');
+		
+		// var age = 0;
+		// switch(age){
+		// 	case 18:  
+		// 	console.log('18岁了');
+		// 	break;
+		// 	case 20: 
+		// 	console.log('20岁了');
+		// 	break;
+		// 	case 30: 
+		// 	console.log('30岁了');
+		// 	break;
+		// 	case 22:
+		// 	console.log('22了')
+		// 	default:
+		// 	alert('啥都不是');
+		// }
+		
+		// var a = 1;
+		// while(a<=10){
+		// 	console.log(a);
+		// 	a++;
+		// }
+		
+		// for(var i = 1; i <= 5; i++){
+		// 	for(var j = 1; j< 10; j++){
+		// 		document.write('*');
+		// 	}
+		// 	document.write('<br>');
+		// }
+		
+		// for(var i=1; i<=6; i++){
+		// 	for(var j=i;j<6;j++){
+		// 		document.write('&nbsp;');
+		// 	}
+			
+		// 	for(var s=1;s<=2*i-1;s++){
+		// 		document.write('*');
+		// 	}
+		// 	document.write('<br>');
+			
+		// }
+		
+		// var a=['啊啊','呵呵','哈哈'];
+		// console.log(a);
+		
+		// function add(x,y){
+		// 	console.log(x+y);
+		// }
+		// add(1,2);
+		// var iddiv = document.getElementById('box');
+		// console.log(iddiv);
+		
+		// var cdiv = document.getElementsByClassName('box1');
+		// console.log(cdiv);
+		
+		// var div = document.getElementsByTagName('div')[0];
+		// console.log(div);
+		
+		// var isRed = true;
+		// iddiv.onclick = function(){
+		// 	// console.log(iddiv.style);
+		// 	if(isRed){
+		// 		iddiv.style.backgroundColor = 'green';
+		// 		isRed = false;
+		// 	}
+		// 	else{
+		// 		iddiv.style.backgroundColor = 'red';
+		// 		isRed = true;
+		// 	}
+		// }
+		// var isShow = true;
+		// var oBut = document.getElementsByClassName('but')[0];
+		// var dDiv = document.getElementsByClassName('box1')[0];
+		
+		// oBut.onclick = function(){
+		// 	if(isShow){
+		// 		dDiv.style.display = 'none';
+		// 		isShow = false;
+		// 		this.innerText='显示';
+		// 	}
+		// 	else{
+		// 		dDiv.style.display = 'block';
+		// 		isShow = true;
+		// 		this.innerText='隐藏';
+		// 	}
+		// }
+		// function $(id){
+		// 	return document.getElementById(id);
+		// }
+		// function $(Class){
+		// 	return document.getElementsByClassName(Class)[0];
+		// }
+		// $('cbut').onmouseover = function(){
+		// 	$('myImg').src = './fd039245.jpg';
+		// 	$('myImg').title = '大美女';
+			
+		// }
+	</script>
+</html>

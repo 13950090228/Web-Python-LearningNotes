@@ -1,0 +1,371 @@
+*{
+	padding: 0;
+	margin: 0;
+}
+a{
+	text-decoration: none;
+}
+ul{
+	list-style: none;
+}
+
+/* 顶部标签栏 */
+.top-Bar{
+	width: 100%;
+	height: 40px;
+	background-color: #333333;
+}
+.top-container{
+	width: 1226px;
+	height: 40px;
+
+	margin-left: auto;
+	margin-right: auto;
+}
+.top-Bar .top-l{
+	width: 775px;
+	height: 40px;
+	float: left;
+}
+.top-Bar .shopcar{
+	width: 120px;
+	height: 40px;
+	float: right;
+	margin-left: 15px;
+	background-color: #424242;
+}
+.top-Bar .top-info{
+	width: 142.5px;
+	height: 40px;
+	float: right;
+}
+.top-l a,.top-info a{
+	color: #B0B0B0;
+	font-size: 12px;
+	display: inline-block;
+	line-height: 40px;
+}
+.shopcar a{
+	color: #B0B0B0;
+	font-size: 12px;
+	display: inline-block;
+	text-align: center;
+	line-height: 40px;
+	padding-left: 3px;
+	width: 116px;
+}
+.top-Bar a:hover{
+	color: white;
+	text-align: center;
+}	
+.shopcar img{
+	vertical-align: text-bottom;
+}
+.sep{
+	color: #424242;
+	margin: 3px;
+	font-size: 12px;
+}
+.shopcar a:hover{
+	background-color: white;
+	color: orangered;
+}
+
+/* 头部标签栏 ------------------------------------------*/
+.header{
+	width: 100%;
+	height: 100px;
+	background-color: transparent;
+}
+
+/* 头部标签栏中间部分 */
+.header-container{
+	height: 100px;
+	width: 1226px;
+	margin-left: auto;
+	margin-right: auto;	
+}
+/* 头部标签栏logo部分 */
+.header-logo{
+	width: 62px;
+	height: 55px;
+	float: left;
+	margin-top: 22px;
+	display: inline-block;
+}
+.header-logo .logo{
+	width: 55px;
+	height: 55px;
+	display: inline-block;
+	background-color: #FF6700;
+}
+.header-logo img{
+	display: inline-block;
+	padding-left: 4px;
+	padding-top: 5px;
+}
+/* 头部标签栏搜索部分 */
+.header-search{
+	width: 296px;
+	height: 100%;
+	float: right;
+	display: inline-block;
+}
+#heard-search{
+	margin-top: 25px;
+	width: 296px;
+	height: 50px;
+}
+#heard-search input[type='search']{
+	width: 240px;
+	height: 50px;
+	padding-left: 10px;
+	padding-right: 10px;
+	border: 1px solid #E0E0E0;
+	font-size: 12px;
+	text-align: right;
+	float: right;
+	outline-color: #FF4500;
+}
+input::-webkit-search-cancel-button {
+  display: none;
+}
+input::input-placeholder{
+	color: #FF4500;
+}
+.search-logo{
+	height: 50px;
+	width: 52px;
+	float: right;
+	border: 1px solid #E0E0E0;
+	background-color: white;
+	cursor: pointer;
+	background: url(../imag/search.png) no-repeat;
+	background-position: center;
+}
+.search-logo:hover{
+	background-color: #FF6700;
+}
+.header-info{
+	display: inline-block;
+	width: 670px;
+	height: 100%;
+}
+/* 空块分隔 */
+.heard-block{
+	float: left;
+	height: 100%;
+	width: 180px;
+}
+/* 头部标签栏中间信息部分 */
+.header-info a{
+	display: inline-block;
+	font-size: 16px;
+	padding-bottom: 26px;
+	padding-top: 40px;
+	padding-left: 10px;
+	padding-right: 10px;
+	float: left;
+	color: black;
+}
+.header-info a:hover{
+	color: #FF4500;
+}
+
+/* 中部小米之家 */
+.home-hero{
+	width: 1226px;
+	height: 644px;
+	margin-left: auto;
+	margin-right: auto;
+	position: relative;
+}
+.home-hero-top{
+	height: 460px;
+	margin-bottom: 14px;
+	
+}
+.home-hero-bottom{
+	height: 170px;
+
+}
+
+.home-hero-background{
+	height: 460px;
+	width: 100%;
+	display:block;
+	background: url(https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/0a48c66150f441d9f27b9a83232fd4f7.jpg?thumb=1&w=1226&h=460&f=webp&q=90);
+
+}
+.home-hero-sidebar{
+	width: 234px;
+	height: 460px;
+	background:rgba(105,101,101,.6);
+	float:left;
+	
+}
+.prev1,.next2,.prev3,.next4{
+		background-image: url(../imag/icon-slides.png);
+		width: 40px;
+		height: 66px;
+		background-repeat: no-repeat;
+		background-position-y: 0px;
+		cursor: pointer;
+
+		line-height: 500px;
+		position: absolute;
+		/* display: inline-block; */
+
+	}
+	.prev1{
+		background-position-x: -1px;	
+		left: 0;
+		top:0px;
+		visibility: hidden;
+	}
+	.next2{
+		background-position-x: -42px;	
+		top:0px;
+		right: 0;
+		visibility: hidden;
+	}
+	.prev3{
+		background-position-x: -84px;	
+		left: 234px;
+		top:202px;
+		visibility: visible;
+	}
+	.next4{
+		background-position-x: -123px;	
+		right: 0;
+		top: 202px;
+		visibility: visible;
+	}
+	.prev3:hover{
+		visibility: hidden;
+	}
+	.prev3:hover .prev1{
+		visibility: visible;
+	}
+	.next4:hover{
+		visibility: hidden;
+	}
+	.next4:hover .next2{
+		visibility: visible;
+	}
+.home-hero-sidebar a{
+	padding-left: 30px;
+	width: 204px;
+	height: 42px;
+	color: white;
+	font-size: 14px;
+	display: block;
+	line-height: 42px;
+	/* background-color: #B0B0B0; */
+}
+.home-hero-rbackground{
+	height: 100%;
+	width: 992px;
+	display: inline-block;
+	background-color: white;
+	float: right;
+}
+
+.home-hero-sidebarin{
+	padding-top: 30px;
+	padding-bottom: 20px;
+}
+/* .home-hero-abackground{
+	height: 460px;
+	width: 992px;
+	display: inline-block;
+	background-color: white;
+	float: right;
+} */
+.home-hero-sidebar a:hover{
+	background-color: #FF6700;
+}
+.home-hero-sidebar a:hover .home-hero-rbackground{
+	visibility: hidden;
+}
+.span6{
+	width: 228px;
+	height: 164px;
+	padding: 3px;
+	display: inline-block;
+	padding-right: 1px;
+	background-color: #5F5750;
+	float: left;
+
+}
+.span6 li{
+	width: 70px;
+	height: 82px;
+	position: relative;
+	display: inline-block;
+}
+.span6 li::before{
+	position: absolute;
+	top: -1px;
+	left: 6px;
+	content: '';
+	height: 1px;
+	width: 64px;
+	background: #665E57;
+}
+.span6 li::after{
+	position: absolute;
+	top:6px;
+	left:0px;
+	content: '';
+	height: 70px;
+	width: 1px;
+	background: #665E57;
+}
+.span6 ul a{
+	position: absolute;
+	top:2px;
+	left:3px;
+	padding-top: 18px;
+	width: 70px;
+	height: 64px;
+	display: inline-block;
+	color:#CFCCCA;
+	font-size: 12px;
+}
+.span6 ul a:hover{
+	color: white;
+}
+.span6 a img{
+	padding-left: 23px;
+	padding-right: 23px;
+	margin-bottom: 4px;
+	width: 24px;
+	height: 24px;
+	float: right;
+}
+.span6 a::before{
+	content: &nbsp;
+}
+.home-hero-bottom1{
+
+	width: 994px;
+	height: 170px;
+	display: inline-block;
+
+	
+}
+.home-hero-bottom1 img{
+	margin-left: 15px;
+	width: 316px;
+	height: 170px;
+	float: left;
+	display: inline-block;
+	/* float: right; */
+	cursor: pointer;
+}
+.home-hero-bottom1 img:hover{
+	position: relative;
+	top: -5px;
+	box-shadow: 5px 5px 4px #666;
+}

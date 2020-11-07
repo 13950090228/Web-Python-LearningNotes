@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.js"></script>
+
+
+</head>
+<body>
+
+
+<div class="outer">
+    <div class="item">
+        <button class="add">+</button><input type="text">
+    </div>
+
+
+
+</div>
+
+
+<script>
+
+
+   $(".add").click(function () {
+       let clone=$(this).parent().clone();
+       clone.children(".add").attr("class","rem").html("-");
+       $(".outer").append(clone)
+
+   });
+
+
+    $(".outer").on("click",".rem",function () {
+        $(this).parent().remove()
+    })
+
+
+
+</script>
+</body>
+</html>

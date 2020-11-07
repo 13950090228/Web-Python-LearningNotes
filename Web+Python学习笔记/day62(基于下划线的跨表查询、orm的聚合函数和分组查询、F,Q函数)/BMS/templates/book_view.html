@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>图书查看</title>
+    <script src="/static/js/jquery.js"></script>
+<!--    <script src="/static/js/jquery@1.12.4.js"></script>-->
+    <!-- 加载 Bootstrap 的所有 JavaScript 插件。你也可以根据需要只加载单个插件。 -->
+    <script src="/static/bootstrap/js/bootstrap.js"></script>
+    <link rel="stylesheet" href="/static/bootstrap/css/bootstrap.css">
+
+</head>
+<style>
+    *{
+        margin: 0;
+        padding: 0;
+    }
+
+    .error{
+        color: red;
+    }
+    .right{
+        color: green;
+    }
+</style>
+<body>
+    <h3>查看书籍</h3>
+    <p>欢迎管理员：{{user}}</p>
+    <a href="/logout/">注销</a>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8 col-md-offset-2">
+                <a class="btn btn-primary" href="/book/add">添加书籍</a>
+                <button type="button" id="modelBtn" class="btn btn-primary" data-toggle="modal">Ajax添加</button>
+                <p></p>
+                <table class="table table-striped table-hover table-bordered">
+                    <thead>
+                        <tr>
+                            <td>编号</td>
+                            <td>书籍名称</td>
+                            <td>价格</td>
+                            <td>出版日期</td>
+                            <td>出版社</td>
+                            <td>作者</td>
+                            <td>操作</td>
+                        </tr>
+                    </thead>
+                    <tbody class="tbody">
+                    {% for book in current_page %}
+                        <tr>
+                            <td>{{forloop.counter|add:val}}</td>
+                            <td>{{book.title}}</td>
+                            <td>{{book.price}}</td>
+                            <td>{{book.pub_date|date:'Y-m-d'}}</td>
+                            <td>{{book.publish}}</td>
+                            <td>
+                                {% for author in book.authors.all %}
+                                    <span>{{author.name}}</span>
+                                    {% if not forloop.last %}
+                                    ,
+                                    {% endif %}
+                                {% endfor %}
+                            </td>
+                            <td>
+                                <button pk="{{book.pk}}" class="delbtn btn btn-sm btn-danger">Ajax删除</button>
+                                {% csrf_token %}
+                                <a href="/book/edit/{{book.pk}}" class="btn btn-sm btn-warning">编辑</a>
+                                <a href="/book/delete/{{book.pk}}" class="btn btn-sm btn-danger">删除</a>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+                <nav aria-label="Page navigation" class="col-md-offset-2">
+					<ul class="pagination">
+                    {% if  current_page.has_previous%}
+				    <li><a href="?pag={{current_page.previous_page_number}}" aria-label="Previous">上一页</a></li>
+                    {% else %}
+                    <li class="disabled"><a href="" aria-label="Previous">上一页</a></li>
+                    {% endif %}
+						{% for num in pag.page_range %}
+						{% if num == current_page_num%}
+							<li class="active"><a href="?pag={{num}}">{{num}}</a></li>
+						{% else %}
+							<li ><a href="?pag={{num}}">{{num}}</a></li>
+						{% endif %}
+						{% endfor %}
+                    {% if  current_page.has_next%}
+				    <li><a href="?pag={{current_page.next_page_number}}" aria-label="Next">下一页</a></li>
+                    {% else %}
+                    <li class="disabled"><a href="" aria-label="Previous">下一页</a></li>
+                    {% endif %}
+					</ul>
+				</nav>
+            </div>
+        </div>
+    </div>
+
+    <!--Ajax 模态框-->
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                            aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel">书籍添加</h4>
+                </div>
+                <div class="modal-body form-horizontal">
+                        <div class="form-group">
+                            <label for="title" class="col-sm-2 control-label">书籍名称</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" id="title" placeholder="Title" name="title">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="price" class="col-sm-2 control-label">价格</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" id="price" placeholder="Price" name="price">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="pub_date" class="col-sm-2 control-label">出版日期</label>
+                            <div class="col-sm-10">
+                                <input type="date" class="form-control" id="pub_date" placeholder="Pub_Date" name="pub_date">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="publish" class="col-sm-2 control-label">出版社</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" id="publish" placeholder="Publish" name="publish">
+                                <span class="error publish_error"></span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="author" class="col-sm-2 control-label">作者</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" id="author" placeholder="Author" name="author">
+                                <span class="error author_error"></span>
+                                <span class="right"></span>
+                            </div>
+                        </div>
+
+                </div>
+                <div class="modal-footer">
+
+                    <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                    <button type="submit" class="btn btn-primary addbtn" id="login" >添加</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+
+<script>
+
+    $('#modelBtn').click(function () {
+
+        $('#myModal').modal('show');
+    })
+
+    $('.delbtn').click(function(){
+        var ele = $(this).parent().parent()
+        var pk = $(this).attr('pk');
+
+        $.ajax({
+            url:"/book/ajax_delete/"+pk,
+            type:"post",
+            data:{
+                'csrfmiddlewaretoken':$("[name='csrfmiddlewaretoken']").val()
+            },
+            success:function (response) {
+                // console.log(response)
+                var obj = JSON.parse(response)
+                console.log(obj.state)
+                if(obj.state == true){
+                    ele.remove()
+                    $(".tbody tr").each(function (i,j) {
+                        $(this).children().first().html(i+1+parseInt('{{ val }}'))
+                    })
+                }
+            }
+        })
+    })
+    $('.addbtn').click(function () {
+        $.ajax({
+            url:"/book/ajax_add/",
+            type:"post",
+            data:{
+                'title':$("#title").val(),
+                'price':$("#price").val(),
+                'pub_date':$("#pub_date").val(),
+                'publish':$("#publish").val(),
+                'author':$("#author").val(),
+                'csrfmiddlewaretoken':$("[name='csrfmiddlewaretoken']").val()
+            },
+            success:function(response){
+                var obj = JSON.parse(response)
+                $('.error').html("")
+                if(obj.obj=='publish'){
+                    $('.publish_error').html(obj.state)
+                }
+                if(obj.obj=='author'){
+                    $('.author_error').html(obj.state)
+                }else{
+                    $('.right').html(obj.state)
+                }
+                $(".tbody tr").each(function (i,j) {
+                        location.reload(true);
+
+                        $(this).children().first().html(i+1+parseInt('{{ val }}'));
+
+                    })
+
+            }
+        })
+
+    })
+</script>
+</html>

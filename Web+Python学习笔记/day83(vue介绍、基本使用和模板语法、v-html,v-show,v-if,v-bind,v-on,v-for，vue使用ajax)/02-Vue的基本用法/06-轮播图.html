@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+<div id="app">
+    <img :src="images[currentIndex].imgSrc" alt="" @click='imgHandler'>
+    <br>
+    <button @click='prevHandler'>上一张</button>
+    <button @click='nextHandler'>下一张</button>
+
+</div>
+<script src="./vue.js"></script>
+<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+<script>
+    let vm = new Vue({
+        el: '#app',
+        data() {
+            return {
+                images: [
+                    {id: 1, imgSrc: './images/1.jpg'},
+                    {id: 2, imgSrc: './images/2.jpg'},
+                    {id: 3, imgSrc: './images/3.jpg'},
+                    {id: 4, imgSrc: './images/4.png'}
+
+                ],
+                currentIndex: 0
+            }
+        },
+        methods: {
+            nextHandler(e) {
+                this.currentIndex++;
+                //更改图片地址
+                if (this.currentIndex == 4) {
+                    this.currentIndex = 0;
+                }
+            },
+            prevHandler(e) {
+
+            },
+            imgHandler(e) {
+                console.log(e.target);
+                console.log(this);
+            }
+        },
+        //组件创建完成， ajax   vue的钩子函数
+        created() {
+            //this指向问题  能用箭头函数 不要用匿名函数
+            setInterval(() => {
+//                 console.log(this);
+                this.currentIndex++;
+                if (this.currentIndex == 4) {
+                    this.currentIndex = 0;
+                }
+            }, 2000);
+
+//            let _this = this;
+//            setInterval( function () {
+//                 console.log(_this);
+//            },1000)
+
+
+
+
+
+
+
+        }
+    })
+</script>
+</body>
+</html>

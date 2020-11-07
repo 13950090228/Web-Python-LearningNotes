@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.js"></script>
+
+    <style>
+
+    </style>
+</head>
+<body>
+
+
+<select id="s1">
+    <option value="0">请选择省份</option>
+    <option value="1">河北省</option>
+    <option value="2">山东省</option>
+    <option value="3">山西省</option>
+    <option value="4">湖北省</option>
+</select>
+
+<select id="s2">
+    <option value="">请选择城市</option>
+</select>
+
+<script>
+
+//  思路
+
+    $("#s1").change(function () {
+
+        let data={"1":["廊坊","保定","雄安"],"2":["青岛","烟台","德州"],"3":["大同","太原","榆次"],"4":["武汉","武昌","汉口"]}
+
+         //  获取用户选择的省份
+         let pro=$(this).val();
+         // 确定选择省份对应的城市列表
+         let citys=data[pro];
+         console.log(citys);
+        // 循环城市列表，为每一个城市创建option标签，添加到s2中
+
+        // 清空
+
+        // $("#s2").empty()
+        $("#s2")[0].options.length=1;
+
+        $.each(citys,function (i,j) {
+            let option=$("<option>"); // <option></option>
+            option.html(j);  // <option>廊坊</option>
+            option.attr("value",i);
+            $("#s2").append(option);
+
+        })
+        
+    })
+
+
+
+
+
+
+
+</script>
+</body>
+</html>

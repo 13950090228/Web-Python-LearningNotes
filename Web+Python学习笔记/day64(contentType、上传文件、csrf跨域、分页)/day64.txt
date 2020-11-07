@@ -1,0 +1,88 @@
+上节回顾
+
+
+
+Ajax： 
+    1 局部刷新
+	2 异步
+	
+	
+ContentType
+    request.POST
+    request.GET
+    request.body
+	
+	              http协议请求格式
+				'''
+                post   url    htpp
+				user_agent:.....................
+				accept:.........................
+				ContentType：json
+				
+				user=yuan&pwd=123    # 数据封装格式：  application/x-www-form-urlencoded
+				{"user":"yuan","pwd":123} # json 格式
+                '''				
+	浏览器-------------------------------->服务器
+	      <--------------------------------- 
+	              http协议响应格式
+	
+	
+	发送接送数据给服务器：
+	    发送者Ajax:
+		       $.ajax({
+					   url:"/cal/",
+					   type:"post",
+					   contentType:"json",  //  key1
+					   data:JSON.stringify({  // key2
+						   num1:num1,
+						   num2:num2,
+						   //csrfmiddlewaretoken:$("[name='csrfmiddlewaretoken']").val()
+
+					   }),
+					   success:function (response) {
+						   console.log(response);
+						   $("#ret").val(response)
+					   }
+
+				   })
+				   
+				  				   
+
+	    Django服务器：
+		     视图函数：
+			       json_dict=json.loads(request.body.decode("utf8"))
+	
+	    注意：
+		     Django解析： 
+					 if contentType："urlencoded":
+						
+						   request.POST=data
+						   
+				     elif contentType=="formdata":
+					       request.FILES=data
+					 else:
+						   request.POST={}
+	
+	
+	
+文件上传
+
+
+
+
+
+今日作业
+
+1 分页器加入到图书管理系统
+
+2 jquery练习：  左侧菜单   table正反选
+
+
+
+明日内容 cookie session 用户认证组件
+https://www.cnblogs.com/yuanchenqi/articles/9036467.html
+
+
+
+    
+    	

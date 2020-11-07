@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<script src="/static/js/jquery.js"></script>
+	<title></title>
+</head>
+<body>
+
+		用户名<input type="text" id="user"/>
+		密码<input type="password" id="pwd"/>
+		<input type="button" value="提交" class="login_btn"/><span class="error"></span>
+		{% csrf_token %}
+
+</body>
+<script>
+	$('.login_btn').click(function(){
+		$.ajax({
+			url:'/login/',
+			type:'post',
+			data:{
+				user:$('#user').val(),
+				pwd:$('#pwd').val(),
+				csrfmiddlewaretoken:$("[name='csrfmiddlewaretoken']").val()
+			},
+			success:function (response) {
+				var res = JSON.parse(response)
+				if(res.user){
+					// location.href='https://www.baidu.com'
+					$('.error').html(res.error).css('color','green')
+				}else{
+					$('.error').html(res.error).css('color','red')
+				}
+			}
+		})
+	})
+</script>
+</html>

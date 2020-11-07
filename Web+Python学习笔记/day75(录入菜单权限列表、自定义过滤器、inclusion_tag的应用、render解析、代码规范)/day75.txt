@@ -1,0 +1,124 @@
+
+
+上节回顾：
+
+权限概念：
+    什么是权限：  一个含义正则表达式的url
+	
+基于RBAC设计表关系：
+    
+	class User(models.Model):
+		name=models.CharField(max_length=32)
+		pwd=models.CharField(max_length=32)
+		roles=models.ManyToManyField("Role")
+		def __str__(self):
+			return self.name
+
+	class Role(models.Model):
+		title=models.CharField(max_length=32)
+		permissions=models.ManyToManyField("Permission")
+		def __str__(self):
+			return self.title
+	class Permission(models.Model):
+		title=models.CharField(max_length=32)
+		url=models.CharField(max_length=32)
+
+		def __str__(self):
+			return self.title
+			
+			
+基于admin录入数据
+
+1 登录认证：注入session
+
+2 基于中间件和正则实现权限校验
+
+
+
+今日内容：
+
+如何动态显示菜单权限
+
+
+注意，如果static文件夹放置某个app下，不需要设置
+
+
+
+自定义过滤器和标签
+
+
+
+
+1 在settings中的INSTALLED_APPS配置当前app，不然django无法找到自定义的simple_tag.
+
+2 在app中创建templatetags模块(模块名只能是templatetags)
+
+3 创建任意 .py 文件，如：my_tags.py
+        
+
+			from django import template
+			from django.utils.safestring import mark_safe
+			register = template.Library()   #register的名字是固定的,不可改变
+			 
+			@register.filter
+			def filter_multi(v1,v2):
+				return  v1 * v2
+
+4  在使用自定义simple_tag和filter的html文件中导入之前创建的 my_tags.py
+        {% load my_tags %}　
+
+5 使用
+    在模板中：
+	
+	# num=12
+	{% load my_tags %}　
+	{{ num|filter_multi:2 }} #24
+
+
+
+总结：
+
+    1 修改表结构：
+	      在权限表中加入is_menu和icon两个字段用来表示该权限是否是菜单权限
+		  
+		  
+	2 登录成功后：
+	        注入该用户的权限列表和菜单权限列表注入到session中
+			permission_menu_list=[{},{}]
+			
+	3 在菜单区域（side_bar）:渲染出菜单链接标签：
+	     {% for item in request.session.permission_menu_list %}
+               <p><a href="{{ item.url }}">{{ item.title }}</a></p>
+         {% endfor %}
+
+    4 点击标签加入active样式：
+	 
+	    解决思路1:
+		    每一个返回母版的视图函数中：
+			    permission_menu_list = request.session.get("permission_menu_list")
+				for item in permission_menu_list:
+					if re.search("^{}$".format(item["url"]), request.path):
+						item["class"] = "active"
+			
+		解决思路2:	引入inclusion_tag方法：
+		        @register.inclusion_tag("rbac/menu.html")
+				def get_menu_styles(request):
+					permission_menu_list = request.session.get("permission_menu_list")
+					for item in permission_menu_list:
+						if re.search("^{}$".format(item["url"]), request.path):
+							item["class"] = "active"
+
+					return {"permission_menu_list":permission_menu_list}
+			
+			
+			在layout.html中：
+			         <div class="menu-body">
+            
+						   {% load web %}
+						   {% get_menu_styles request %}
+
+					</div>
+					
+					
+					
+https://www.cnblogs.com/yuanchenqi/articles/8876892.html

@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+</head>
+<body>
+    <h4>INDEX界面</h4>
+    <button class="btn">提交Ajax</button>
+    <p class="show"></p>
+    <hr>
+<!--    {% csrf_token %}-->
+    <input type="text" id="num1"> + <input type="text" id="num2"> = <input type="text" id="res"> <button class="cal">计算</button>
+    <hr>
+    <form action="/name/" method="post" >
+<!--        {% csrf_token %}-->
+        姓名 <input type="text" name="user">
+        <input type="submit">
+    </form>
+    <hr>
+    <h4>文件上传 form表单</h4>
+    <form action="/file_put/" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        姓名 <input type="text" name="user">
+        文件 <input type="file" name="file_obj" id="form-obj">
+        <input type="submit" value="提交">
+    </form>
+    <h4>文件上传 Ajax</h4>
+    <div>
+        姓名 <input type="text" name="user" id="user">
+        文件 <input type="file" name="file_obj" id="file">
+        <button class="filebtn">文件上传</button><span class="file_res"></span>
+    </div>
+</body>
+<script src="/static/js/jquery.js"></script>
+<script src="/static/js/jquery.cookie.js"></script>
+<script>
+
+    // #简单的ajax请求
+    $('.btn').click(function () {
+        $.ajax({
+            url:'/handle_ajax/',
+            type:'get',
+            success:function (response) {
+                $('.show').html(response)
+            }
+        })
+
+    })
+    $('.cal').click(function () {
+        var num1=$("#num1").val()
+        var num2=$("#num2").val()
+        console.log(num1,num2)
+        $.ajax({
+            url:'/cal/',
+            type:'post',
+            contentType:'json',
+            headers:{
+                "X-CSRFToken":$.cookie('csrftoken'),
+            },
+            data:JSON.stringify({
+                num1:num1,
+                num2:num2,
+                // csrfmiddlewaretoken:$("[name='csrfmiddlewaretoken']").val()
+            }),
+            success:function (response) {
+                console.log(response)
+                $('#res').val(response)
+            }
+        })
+
+    })
+
+//    文件上穿
+    $('.filebtn').click(function () {
+        var formdata = new FormData()
+        formdata.append("file_obj",$('#file')[0].files[0])
+        formdata.append("user",$('#user').val())
+        $.ajax({
+            url:"/file_put/",
+            type:"post",
+            //Ajax上传文件必备参数
+            processData:false,  //不处理数据
+            contentType:false,  //不做类型设置
+            headers:{
+                "X-CSRFToken":$.cookie('csrftoken'),
+            },
+            data:formdata,
+            success:function (response){
+                if(response == 'ok'){
+                    $('.file_res').html('文件上传成功')
+                }else{
+                    $('.file_res').html('文件上传异常')
+                }
+
+            }
+        })
+    })
+</script>
+</html>

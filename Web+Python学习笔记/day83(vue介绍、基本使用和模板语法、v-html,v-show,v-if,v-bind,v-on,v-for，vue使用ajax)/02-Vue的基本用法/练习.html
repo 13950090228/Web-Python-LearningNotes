@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title></title>
+</head>
+<style>
+	.box{
+		width: 500px;
+		height: 500px;
+		background-color: #FF0000;
+	}
+	.box2{
+		width: 500px;
+		height: 500px;
+		background-color: green;
+	}
+	.action{
+		background-color: aqua;
+	}
+</style>
+<body>
+	<div id="app">
+		<h2>{{ msg }}</h2>
+		<h2>{{ 1+1 }}</h2>
+		<h2>{{ {'name':'alex'} }}</h2>
+		<h2>{{ 1>2? "真的":"假的" }}</h2>
+		<p>{{ msg2.split('').reverse().join('') }}</p>
+	</div>
+	
+	<div id="content">
+		<div v-text = "msg"></div>
+		<div v-html = "msg"></div>
+		{{ add(4,16) }}
+		<button v-on:click="handerClick">隐藏</button>
+		<div class="box" v-show="isShow"></div>
+		<div class="box2" v-if="isShow" v-bind:class="{action:isTrue}"></div>
+		<button @click='ColorClick'>切换颜色</button>
+		<div v-if="Math.random() > 0.5">
+			有了
+		</div>
+		<div v-else>
+			没了
+		</div>
+		
+	</div>
+	
+	<div id='app2'>
+		<ul v-if="data.status === 'ok'">
+			<li v-for="item in data.users">
+				<h3>{{ item.id }}{{ item.name }}</h3>
+			</li>
+		</ul>
+	</div>
+
+	
+</body>
+<script src="./vue.js"></script>
+<script type="text/javascript">
+	new Vue({
+		el:"#app",
+		data:{
+			msg:"黄瓜",
+			msg2:"hello Vue",
+		},
+		
+	});
+	
+	new Vue({
+		el:'#content',
+		data(){
+			return {
+				msg:"<h2>123</h2>",
+				isShow:true,
+				isTrue:true,
+			}
+		},
+		methods:{
+			add(x,y){
+				return x+y
+			},
+			
+			handerClick(){
+				console.log(this);
+				this.isShow = !this.isShow
+			},
+			ColorClick(){
+				this.isTrue = !this.isTrue;
+			}
+			
+		}
+	});
+	
+	new Vue({
+		el:"#app2",
+		data(){
+			return{
+				data:{
+					status:'ok',
+					users:[
+						{id:1,name:'lyq',age:18},
+						{id:2,name:'djg',age:20},
+						{id:3,name:'yy',age:21},
+					]
+				}
+			}
+		}
+	})
+</script>
+</html>

@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+<script>
+ //    var add = function(x) {
+	// 	return x;
+	// }
+	// add(10);
+	
+	// let add2 = (x)=>{
+	// 	return x
+	// }
+	
+	// let add2 = x =>x;
+	// console.log(add2(20))
+	
+	// var person = {
+	// 	name:"大鸡哥",
+	// 	age:21,
+	// 	func:function(){
+	// 		console.log(this);
+	// 	}
+	// }
+	
+	// person.func()
+	
+	// function Person(name,age){
+	// 	this.name = name;
+	// 	this.age = age;
+	// }
+	
+	// Person.prototype.showName = function(){
+	// 	console.log(this.name);
+	// }
+	
+	// var p1 = new Person('alex','21');
+	
+	// console.log(p1.age);
+	
+	class Person{
+		constructor(name='alex',age=21) {
+		    this.name = name;
+			this.age = age;
+		}
+		showName(){
+			console.log(this.name);
+		}
+		showage(){
+			console.log(this.age);
+		}
+	}
+	var p1 = new Person();
+	p1.showName();
+	p1.showage();
+	
+
+	
+	
+</script>
+</body>
+</html>

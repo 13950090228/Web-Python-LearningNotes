@@ -1,0 +1,127 @@
+回顾jquery
+
+回顾jquery
+
+1 选择器
+    基本选择器 ：  $("#c1")   $(".c1")   $("p")   $("*")
+	组合选择器 ：  $(".c1 p") $(".c1>p") $("div,p")  $("div[alex='123']")
+    属性选择器 ：  $("[alex='123']")   $("[name='123']")
+	表单选择器 ：  $(":radio")
+	筛选器：
+	    
+	         $(".c1").eq(索引)
+	         $(".c1").first()
+	         $(".c1").last()
+	         $(".c1").even()
+	         $(".c1").odd()
+			 
+			 $("#c1").hasclass("c1")
+			 
+2 绑定事件
+    dom.on事件=function(){
+	   //  this ： 当前事件触发标签
+	}
+	
+	jquery对象.事件(function(){
+	   //   $(this):当前事件触发标签
+	})
+
+3 循环
+        // 1 循环序列
+
+		var arr=[12,34,5667];
+		$.each(arr,function (i,j) {
+			console.log(i,j)
+		});
+
+		var obj={"name":"alex","age":123}
+		$.each(obj,function (i,j) {
+			console.log(i,j)
+		});
+
+		// 2 循环标签
+
+		$("ul li").each(function (i,j) {
+			console.log(i,j);
+			console.log($(this).html())
+		})
+  
+	
+3 操作标签
+
+   1 文本控制
+         $("#p3").html()	
+		 $("#p3").text()
+		 $("#p3").html("<a href>1111</a>")	
+		 $("#p3").text("<a href>1111</a>")
+	
+   2 属性控制
+		 attr(属性名称)   
+		 attr(属性名称，属性值) 
+         removeAttr()	
+		  
+         $("#p3").addClass("c3")
+	     $("#p3").removeClass("c1")	
+
+         三个标签有val方法
+         input  
+         textarea
+         select
+		 
+	3 节点控制（Node）
+	     JS：document节点 element节点
+	
+	   1 创建节点
+	     $("<p>") //   <p></p>
+	   
+	   2 $("div").append("<p>123</p>")
+	     $("<p>").appendTo("div")
+		 $("div").after("<p>123</p>")
+	   
+	   3 $("div").remove()
+
+       4 $("div").replaceWith("新节点")
+       
+       5 $("div").clone("创建节点")
+
+
+	   
+ 
+自定义分页：
+    保存搜索条件
+
+    预备知识：
+         QueryDict
+            # request.GET["xxx"]=123
+            print(type(request.GET))
+            from django.http.request import QueryDict
+            print(request.GET)
+            import copy
+            params=copy.deepcopy(request.GET)
+            params["xxx"]=123
+            print("params", params)
+            print(params.urlencode()) # "a=1&b=2&xxx=123"
+    	
+
+视图函数
+    
+FBV-----function based view	
+CBV-----class  based view
+		
+	path('index/', views.index),
+	path('login/', views.LoginView.as_view()),
+	path('login/', View.as_view.view)
+	# 用户访问get请求/login/-----------view(request)
+	
+	def view(request):
+	    self = cls(**initkwargs)
+	    return self.dispatch(request, *args, **kwargs)
+	    
+		def dispatch(request, *args, **kwargs):
+		        if request.method.lower() in self.http_method_names:
+					handler = getattr(self, request.method.lower(), self.http_method_not_allowed)
+				else:
+					handler = self.http_method_not_allowed
+				return handler(request, *args, **kwargs)
+	
+

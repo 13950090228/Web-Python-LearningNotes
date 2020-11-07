@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<script src="jquery.js"></script>
+	</head>
+	<style type="text/css">
+		ul {
+			list-style: none;
+		}
+		a{
+			text-decoration: none;
+			color: black;
+		}
+		.box{
+			width: 200px;
+			height: 200px;
+			background-color: red;
+			display: none;
+		}
+	</style>
+	<body>
+		<a href="javascript:void(0)" class="getCity">显示</a>
+		<div class="box">
+			
+		</div>
+	</body>
+	<script type="text/javascript">
+		$(function(){
+			
+			var HeWeather6Data = null;
+			var weatherArry = [];
+			
+			function init(){
+				getNowWCity();
+				getForecastWeather();
+			}
+			init();
+			// 获取城市名
+			function getNowWCity(){
+				$.ajax({
+					url:`https://free-api.heweather.net/s6/weather/forecast?location=xiamen&key=6cc865c94e7446689e2ddc96012a2081`,
+					type:'get',
+					
+					success:function(data){
+						
+						var CityName = data.HeWeather6[0].basic.location;
+						$('.getCity').append(`${CityName}`);
+					},
+					
+					error:function(err){
+						console.log(err);
+					},
+				});
+			};
+			
+			//获取天气信息
+			function getForecastWeather(){
+				$.ajax({
+					url:`https://free-api.heweather.net/s6/weather/forecast?location=xiamen&key=6cc865c94e7446689e2ddc96012a2081`,
+					type:'get',
+					success:function(data){
+						
+						weatherArry = data.HeWeather6[0].daily_forecast;
+					},
+					
+					error:function(err){
+						console.log(err);
+					},
+					
+				});
+			};
+			
+			
+			$('.getCity').mouseenter(function(){
+				$('.box').show();
+				$('.box').empty();
+				weatherArry.forEach(function(item,index){
+					
+					var cond_txt_d = item.cond_txt_d
+					var date = item.date;
+					var tmp_max = item.tmp_max;
+					
+					$('.box').append(`<p>时间:${date} 天气:${cond_txt_d} 温度:${tmp_max}</p>`);
+					console.log(date);
+				})
+			})
+			
+			
+			$('.getCity').mouseleave(function(){
+				$('.box').hide();
+			})
+				
+			
+			// setInterval(function(){
+			// 	getForecastWeather()
+			
+			// },1000*60*60*3);
+			
+			// $('.getCity').mouseenter(function(){
+			// 	setTimeout(function(){
+			// 		$('.box').show();
+					
+			// 		weatherArry.forEach(function(item,index){
+						
+			// 			var cond_code = item.cond_code_d;
+						
+			// 			$('.box ul li img').eq(index).attr('src',`./images/${cond_code}.png`);
+			// 		})
+			// 	},1000);
+				
+			// });
+		})
+	</script>
+</html>

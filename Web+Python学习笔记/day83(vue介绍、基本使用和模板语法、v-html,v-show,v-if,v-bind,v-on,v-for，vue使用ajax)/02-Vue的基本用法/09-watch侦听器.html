@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+    <div id="app">
+        <p>{{ msg }}</p>
+        <button @click = 'clickHandler'>修改</button>
+    </div>
+    <script src="vue.js"></script>
+    <script>
+        new Vue({
+            el:'#app',
+            data(){
+                return {
+                    msg:"alex",
+                    age:18
+                }
+
+            },
+            methods:{
+                clickHandler(){
+                    this.msg = "wusir"
+                }
+            },
+            watch:{
+                //watch单个属性，如果想监听多个属性 声明多个属性的监听
+                'msg':function (value) {
+
+                    console.log(value);
+
+                    if (value === 'wusir'){
+                        alert(1);
+                       this.msg = '大武sir'
+                    }
+                },
+                'age' :function (value) {
+                    
+                }
+            }
+        })
+    </script>
+</body>
+</html>

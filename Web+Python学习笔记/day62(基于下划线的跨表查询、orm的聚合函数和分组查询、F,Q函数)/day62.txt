@@ -1,0 +1,207 @@
+
+day62
+上节回顾：
+
+
+ORM的多表操作
+
+1 操作记录
+
+  一对多：
+        方式1:
+		   publish_obj=Publish.objects.get(nid=1)
+		   book_obj=Book.objects.create(title="金瓶眉",publishDate="2012-12-12",price=100,publish=publish_obj)
+		  
+		方式2:
+		   book_obj=Book.objects.create(title="金瓶眉",publishDate="2012-12-12",price=100,publish_id=1)　
+		   
+		   book_obj.publish : 与这本书籍关联出版社对象
+		   
+		   
+  多对多记录操作：
+        核心：先第三张关系表添加记录
+		      app01_book_author
+			       
+				   id    book_id    author_id
+				    1       1            1
+					2       1            2
+					3       2            2
+					
+		     author
+			 
+			 
+			    id   name
+				 1   alex
+				 2   egon
+		
+		book_obj.authors.add(1,2) 
+		book_obj.authors.remove(1) 
+		book_obj.authors.clear() 
+		book_obj.authors.set(3)
+		
+		book_obj.authors.all()  # 查询与这本书关联的所有queryset的集合
+		
+		
+		
+2 基于对象的跨表查询（基于子查询）
+
+    正向查询
+	
+	一对多： 
+				      正向查询按字段：book.publish
+			Book----------------------------------------->Publish
+				 <---------------------------------------
+				  反向查询表名小写_set.all()：pub_obj.book_set.all()
+
+
+ 
+    多对多：
+					正向查询按字段 book.authors.all()
+		    Book  -------------------------------------->Author
+				 <--------------------------------------
+					反向查询按表名小写_set.all()： alex.book_set.all()
+
+
+    一对一：
+	                 正常查询安字段：alex.ad
+        Author -----------------------------------------> AuthorDetail
+               <------------------------------------------
+                     反向查询按表名小写 ad.author
+    
+	总结：正向查询按字段，反向查询
+	                            得到一个对象，按表名小写
+	                            可能得到多个对象，按表名小写_set().all()
+	
+ 
+
+
+
+
+基于双下划线的跨表查询（基于join实现的） 
+
+KEY：正向查询按字段，反向查询按表明小写
+    #基于双下划线的跨表查询(基于join实现)
+
+    #一对多的查询
+    #查询python这本书的出版社和email
+    # 正查
+    # ret = Book.objects.filter(title='python').values('publish__name','publish__email')
+    # print(ret)
+    #反查
+    # ret = Publish.objects.filter(book__title='python').values('name','email')
+
+    #查询苹果出版社出版的所有书
+    # ret = Publish.objects.filter(name='苹果出版社').values('book__title')
+
+    # ret = Book.objects.filter(publish__name='苹果出版社').values('title')
+    # print(ret)
+
+    #查询python这本书的作者的年龄
+    # ret = Book.objects.filter(title='Web开发').values('authors__age')
+    # ret = Author.objects.filter(book__title='python').values('age')
+    # print(ret)
+
+    #查询刘永祺出版过的所有书籍
+    # ret = Author.objects.filter(name='刘永祺').values('book__title')
+    # ret = Book.objects.filter(authors__name='刘永祺').values('title')
+    # print(ret)
+
+    #查询刘永祺的手机号
+    # ret = Author.objects.filter(name='刘永祺').values('ad__tel')
+    # ret = AuthorDetail.objects.filter(author__name='刘永祺').values('tel')
+    # print(ret)
+
+    #查询手机号为1111的人
+    # ret = AuthorDetail.objects.filter(tel=1111).values('author__name')
+    # ret = Author.objects.filter(ad__tel=1111).values('name')
+    # print(ret)
+
+    #查看苹果出版社出版的所有书籍的名字和作者的姓名
+    # ret = Publish.objects.filter(name='苹果出版社').values('book__title','book__authors__name')
+
+    #查看手机号为1111开头的作者出版过的所有书籍名称以及出版社名
+    # ret = AuthorDetail.objects.filter(tel__startswith=22).values('author__book__title','author__book__publish__name')
+    # print(ret)
+
+    #聚合函数
+    #查所有书籍平均价格
+    # ret = Book.objects.all().aggregate(Avg('price'))  #返回一个字典{'price__avg': Decimal('105.333333')}
+    #aggregate(priceAvg=Avg('price')）  将键值 'price__avg'改成'priceAvg'
+    #查所有书籍个数
+    # ret = Book.objects.all().aggregate(Count('nid'))
+    # print(ret)
+
+    #分组
+    #单表分组查询
+    #key: annotate()前values哪一个字段就按拿一个字段group by
+    #查询书籍表每一个出版社id以及对应的书籍个数
+    # ret = Book.objects.values('publish_id').annotate(num=Count(1))
+    # print(ret)
+
+    #查询每一个部门的名称以及对应员工的平均薪水
+    # ret = Emp.objects.values('dep').annotate(avg=Avg('salary'))
+    # print(ret)
+
+    #查询每一个省份的人称以及对应的员工人数
+    # ret = Emp.objects.values('pro').annotate(num=Count(1))
+    #查询每一个省份的人称以及对应的最大年龄
+    # ret = Emp.objects.values('pro').annotate(max_age=Max('age'))
+    # print(ret)
+
+    #跨表查询
+    #1 查询每一个出版社的名称和对应的的书籍平均价格
+    #方式一
+    # ret = Publish.objects.values('name').annotate(avg_price=Avg('book__price'))
+    #方式二
+    # ret = Publish.objects.all().annotate(avg_price=Avg('book__price')).values('name','avg_price')
+    #方式三
+    # ret = Publish.objects.annotate(avg_price=Avg('book__price')).values('name', 'avg_price','email')
+
+    #方式二等于方式三
+
+
+    #2 查询每一个作者的名字以及出版书籍的最高价格
+    # ret = Author.objects.values('name').annotate(max_price=Max('book__price'))
+
+    # 3查询每一个书籍的名称和对应作者的个数
+    # ret = Book.objects.values('title').annotate(author_num=Count('authors__name'))
+    # ret = Book.objects.annotate(c=Count('authors')).values('title','c')
+    # ret = Book.objects.annotate(c=Count('authors')).values('title','c')
+
+    # 4 查询作者数不止一个的书籍名称以及作者个数
+    # ret = Book.objects.annotate(c=Count('authors')).filter(c__gt=1).values('title','c')
+
+    # 5 根据一本图书作者数的多少进行排序
+    # ret = Book.objects.annotate(c=Count('authors')).order_by('c').values('title','c')
+
+    # 6 统计以‘py’开头的书籍的作者的个数
+    # ret = Book.objects.annotate(c=Count('authors')).filter(title__startswith='py').values('title', 'c')
+    # print(ret)
+
+    ##### F与Q查询 ############
+    # 查询评论数大于点赞数的书的名字
+    # ret = Book.objects.filter(comment_count__gt=F('poll_count'))
+
+    # 查询评论数大于点赞数的书的名字
+    # ret = Book.objects.filter(comment_count__gt=F('poll_count')*2)
+
+    # 给每一本书价格多100块
+    # ret = Book.objects.all().update(price=F('price')+100)
+
+    # 查询价格大于205或者评论数小于等于3000的所有书籍
+    # &与  |或   ~非   Q可以嵌套
+    # ret = Book.objects.filter(Q(Q(price__gt=205)|Q(comment_count__gt=3000)) & Q(price__gt=200) )
+
+
+
+
+
+
+
+
+
+
+
+
+
+

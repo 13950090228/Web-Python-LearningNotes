@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.js"></script>
+</head>
+<body>
+
+<ul>
+    <li>123</li>
+    <li>345</li>
+    <li>456</li>
+</ul>
+
+<button class="btn">btn</button>
+
+<script>
+
+//    $("ul li").click(function () {
+//        alert($(this).html())
+//    });
+
+
+     $("ul").on("click","li",function () {
+         alert(1234)
+     });
+
+
+    $(".btn").click(function () {
+
+        $("ul").append("<li>678</li>")
+
+    })
+
+</script>
+</body>
+</html>

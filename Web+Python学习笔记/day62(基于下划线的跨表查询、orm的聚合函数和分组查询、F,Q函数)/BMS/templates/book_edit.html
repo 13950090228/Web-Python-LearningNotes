@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="/static/bootstrap/css/bootstrap.css">
+    <title>编辑书籍</title>
+</head>
+<style>
+    *{
+        margin: 0;
+        padding: 0;
+    }
+
+</style>
+<body>
+    <h3>编辑书籍</h3>
+    <p>欢迎管理员：{{user}}</p>
+    <a href="/logout/">注销</a>
+    <div class="col-md-offset-3 col-md-6">
+        <a class="btn btn-primary" href="/book/">返回首页</a>
+        <p></p>
+        {% include 'form.html' %}
+<!--        <form action="" method="post" novalidate>-->
+<!--            {% csrf_token %}-->
+<!--            {% for field in form %}-->
+<!--                    <div class="form-group">-->
+<!--                         <label for="">{{ field.label }}</label>-->
+<!--                         {{ field }}-->
+<!--                         <span class="error">{{ field.errors.0 }}</span>-->
+<!--                    </div>-->
+<!--             {% endfor %}-->
+
+<!--            <div class="form-group">-->
+<!--                <label for="title">书籍名称</label>-->
+<!--                <input type="text" class="form-control" id="title" value="{{edit_book.title}}" name="title">-->
+<!--            </div>-->
+<!--            <div class="form-group">-->
+<!--                <label for="price">价格</label>-->
+<!--                <input type="text" class="form-control" value="{{edit_book.price}}" id="price"  name="price">-->
+<!--            </div>-->
+<!--            <div class="form-group">-->
+<!--                <label for="pub_date">出版日期</label>-->
+<!--                <input type="date" class="form-control" id="pub_date" value="{{edit_book.pub_date|date:'Y-m-d'}}" name="pub_date">-->
+<!--            </div>-->
+<!--             <div class="form-group">-->
+<!--                <label for="publish_id">出版社</label>-->
+<!--                <select name="publish_id" id="publish_id" class="form-control" value="{{edit_book.publish}}">-->
+<!--                    {% for publish in publish_list %}-->
+<!--                        {% if edit_book.publish == publish %}-->
+<!--                            <option selected value="{{publish.pk}}">{{publish.name}}</option>-->
+<!--                        {% else %}-->
+<!--                            <option value="{{publish.pk}}">{{publish.name}}</option>-->
+<!--                        {% endif %}-->
+<!--                    {% endfor %}-->
+<!--                </select>-->
+<!--            </div>-->
+<!--            <div class="form-group">-->
+<!--                <label for="author">作者</label>-->
+<!--                <select name="author" id="author" class="form-control" multiple value="{{edit_book.author}}">-->
+<!--                    {% for author in author_list %}-->
+<!--                        {% if author in edit_book.authors.all %}-->
+<!--                            <option selected value="{{author.pk}}">{{author.name}}</option>-->
+<!--                        {% else %}-->
+<!--                            <option value="{{author.pk}}">{{author.name}}</option>-->
+<!--                        {% endif %}-->
+<!--                    {% endfor %}-->
+<!--                </select>-->
+<!--            </div>-->
+
+<!--            <button type="submit" class="btn btn-success pull-right">提交</button>-->
+<!--        </form>-->
+    </div>
+</body>
+<script src="/static/js/jquery.js"></script>
+</html>
